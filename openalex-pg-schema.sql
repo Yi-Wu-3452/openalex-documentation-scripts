@@ -1,3 +1,4 @@
+-- Active: 1770169352525@@10.230.100.200@5432@agentic_fs_research
 --
 -- PostgreSQL database dump
 --
@@ -6,14 +7,23 @@
 -- Dumped by pg_dump version 14.1
 
 SET statement_timeout = 0;
+
 SET lock_timeout = 0;
+
 SET idle_in_transaction_session_timeout = 0;
+
 SET client_encoding = 'UTF8';
+
 SET standard_conforming_strings = on;
-SELECT pg_catalog.set_config('search_path', '', false);
+
+SELECT pg_catalog.set_config ('search_path', '', false);
+
 SET check_function_bodies = false;
+
 SET xmloption = content;
+
 SET client_min_messages = warning;
+
 SET row_security = off;
 
 --
@@ -21,7 +31,6 @@ SET row_security = off;
 --
 
 CREATE SCHEMA openalex;
-
 
 SET default_tablespace = '';
 
@@ -43,7 +52,6 @@ CREATE TABLE openalex.authors (
     updated_date timestamp without time zone
 );
 
-
 --
 -- Name: authors_counts_by_year; Type: TABLE; Schema: openalex; Owner: -
 --
@@ -55,7 +63,6 @@ CREATE TABLE openalex.authors_counts_by_year (
     cited_by_count integer,
     oa_works_count integer
 );
-
 
 --
 -- Name: authors_ids; Type: TABLE; Schema: openalex; Owner: -
@@ -70,7 +77,6 @@ CREATE TABLE openalex.authors_ids (
     wikipedia text,
     mag bigint
 );
-
 
 CREATE TABLE openalex.topics (
     id text NOT NULL,
@@ -87,7 +93,8 @@ CREATE TABLE openalex.topics (
     wikipedia_id text,
     works_count integer,
     cited_by_count integer,
-    updated_date timestamp without time zone
+    updated_date timestamp without time zone,
+    siblings text
 );
 
 --
@@ -108,7 +115,6 @@ CREATE TABLE openalex.concepts (
     updated_date timestamp without time zone
 );
 
-
 --
 -- Name: concepts_ancestors; Type: TABLE; Schema: openalex; Owner: -
 --
@@ -117,7 +123,6 @@ CREATE TABLE openalex.concepts_ancestors (
     concept_id text,
     ancestor_id text
 );
-
 
 --
 -- Name: concepts_counts_by_year; Type: TABLE; Schema: openalex; Owner: -
@@ -130,7 +135,6 @@ CREATE TABLE openalex.concepts_counts_by_year (
     cited_by_count integer,
     oa_works_count integer
 );
-
 
 --
 -- Name: concepts_ids; Type: TABLE; Schema: openalex; Owner: -
@@ -146,7 +150,6 @@ CREATE TABLE openalex.concepts_ids (
     mag bigint
 );
 
-
 --
 -- Name: concepts_related_concepts; Type: TABLE; Schema: openalex; Owner: -
 --
@@ -156,7 +159,6 @@ CREATE TABLE openalex.concepts_related_concepts (
     related_concept_id text,
     score real
 );
-
 
 --
 -- Name: institutions; Type: TABLE; Schema: openalex; Owner: -
@@ -179,7 +181,6 @@ CREATE TABLE openalex.institutions (
     updated_date timestamp without time zone
 );
 
-
 --
 -- Name: institutions_associated_institutions; Type: TABLE; Schema: openalex; Owner: -
 --
@@ -189,7 +190,6 @@ CREATE TABLE openalex.institutions_associated_institutions (
     associated_institution_id text,
     relationship text
 );
-
 
 --
 -- Name: institutions_counts_by_year; Type: TABLE; Schema: openalex; Owner: -
@@ -202,7 +202,6 @@ CREATE TABLE openalex.institutions_counts_by_year (
     cited_by_count integer,
     oa_works_count integer
 );
-
 
 --
 -- Name: institutions_geo; Type: TABLE; Schema: openalex; Owner: -
@@ -219,7 +218,6 @@ CREATE TABLE openalex.institutions_geo (
     longitude real
 );
 
-
 --
 -- Name: institutions_ids; Type: TABLE; Schema: openalex; Owner: -
 --
@@ -233,7 +231,6 @@ CREATE TABLE openalex.institutions_ids (
     wikidata text,
     mag bigint
 );
-
 
 --
 -- Name: publishers; Type: TABLE; Schema: openalex; Owner: -
@@ -252,7 +249,6 @@ CREATE TABLE openalex.publishers (
     updated_date timestamp without time zone
 );
 
-
 --
 -- Name: publishers_counts_by_year; Type: TABLE; Schema: openalex; Owner: -
 --
@@ -265,7 +261,6 @@ CREATE TABLE openalex.publishers_counts_by_year (
     oa_works_count integer
 );
 
-
 --
 -- Name: publishers_ids; Type: TABLE; Schema: openalex; Owner: -
 --
@@ -276,7 +271,6 @@ CREATE TABLE openalex.publishers_ids (
     ror text,
     wikidata text
 );
-
 
 --
 -- Name: sources; Type: TABLE; Schema: openalex; Owner: -
@@ -297,7 +291,6 @@ CREATE TABLE openalex.sources (
     updated_date timestamp without time zone
 );
 
-
 --
 -- Name: sources_counts_by_year; Type: TABLE; Schema: openalex; Owner: -
 --
@@ -309,7 +302,6 @@ CREATE TABLE openalex.sources_counts_by_year (
     cited_by_count integer,
     oa_works_count integer
 );
-
 
 --
 -- Name: sources_ids; Type: TABLE; Schema: openalex; Owner: -
@@ -324,7 +316,6 @@ CREATE TABLE openalex.sources_ids (
     wikidata text,
     fatcat text
 );
-
 
 --
 -- Name: works; Type: TABLE; Schema: openalex; Owner: -
@@ -360,7 +351,6 @@ CREATE TABLE openalex.works_primary_locations (
     license text
 );
 
-
 --
 -- Name: works_locations; Type: TABLE; Schema: openalex; Owner: -
 --
@@ -374,7 +364,6 @@ CREATE TABLE openalex.works_locations (
     version text,
     license text
 );
-
 
 --
 -- Name: works_best_oa_locations; Type: TABLE; Schema: openalex; Owner: -
@@ -390,7 +379,6 @@ CREATE TABLE openalex.works_best_oa_locations (
     license text
 );
 
-
 --
 -- Name: works_authorships; Type: TABLE; Schema: openalex; Owner: -
 --
@@ -402,7 +390,6 @@ CREATE TABLE openalex.works_authorships (
     institution_id text,
     raw_affiliation_string text
 );
-
 
 --
 -- Name: works_biblio; Type: TABLE; Schema: openalex; Owner: -
@@ -436,7 +423,6 @@ CREATE TABLE openalex.works_concepts (
     score real
 );
 
-
 --
 -- Name: works_ids; Type: TABLE; Schema: openalex; Owner: -
 --
@@ -449,7 +435,6 @@ CREATE TABLE openalex.works_ids (
     pmid text,
     pmcid text
 );
-
 
 --
 -- Name: works_mesh; Type: TABLE; Schema: openalex; Owner: -
@@ -464,7 +449,6 @@ CREATE TABLE openalex.works_mesh (
     is_major_topic boolean
 );
 
-
 --
 -- Name: works_open_access; Type: TABLE; Schema: openalex; Owner: -
 --
@@ -477,7 +461,6 @@ CREATE TABLE openalex.works_open_access (
     any_repository_has_fulltext boolean
 );
 
-
 --
 -- Name: works_referenced_works; Type: TABLE; Schema: openalex; Owner: -
 --
@@ -487,7 +470,6 @@ CREATE TABLE openalex.works_referenced_works (
     referenced_work_id text
 );
 
-
 --
 -- Name: works_related_works; Type: TABLE; Schema: openalex; Owner: -
 --
@@ -496,7 +478,6 @@ CREATE TABLE openalex.works_related_works (
     work_id text,
     related_work_id text
 );
-
 
 ----
 ---- Name: authors_counts_by_year authors_counts_by_year_pkey; Type: CONSTRAINT; Schema: openalex; Owner: -
@@ -632,13 +613,11 @@ CREATE TABLE openalex.works_related_works (
 
 CREATE INDEX concepts_ancestors_concept_id_idx ON openalex.concepts_ancestors USING btree (concept_id);
 
-
 --
 -- Name: concepts_related_concepts_concept_id_idx; Type: INDEX; Schema: openalex; Owner: -
 --
 
 CREATE INDEX concepts_related_concepts_concept_id_idx ON openalex.concepts_related_concepts USING btree (concept_id);
-
 
 --
 -- Name: concepts_related_concepts_related_concept_id_idx; Type: INDEX; Schema: openalex; Owner: -
@@ -652,20 +631,17 @@ CREATE INDEX concepts_related_concepts_related_concept_id_idx ON openalex.concep
 
 CREATE INDEX works_primary_locations_work_id_idx ON openalex.works_primary_locations USING btree (work_id);
 
-
 --
 -- Name: works_locations_work_id_idx; Type: INDEX; Schema: openalex; Owner: -
 --
 
 CREATE INDEX works_locations_work_id_idx ON openalex.works_locations USING btree (work_id);
 
-
 --
 -- Name: works_best_oa_locations_work_id_idx; Type: INDEX; Schema: openalex; Owner: -
 --
 
 CREATE INDEX works_best_oa_locations_work_id_idx ON openalex.works_best_oa_locations USING btree (work_id);
-
 
 --
 -- PostgreSQL database dump complete
